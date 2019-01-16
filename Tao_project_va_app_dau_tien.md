@@ -1,0 +1,92 @@
+# Tạo 1 project
+Đầu tiên bạn cần cài đặt django bằng câu lệnh
+`pip install django`
+
+Sau đó tạo 1 project có tên là mysite
+`django-admin startproject mysite`
+
+Sau khi tạo project thì sẽ có được 1 cây thư mục như này
+
+![image](https://user-images.githubusercontent.com/45547213/51222261-867e5000-196f-11e9-8f24-2785fcf3a231.png)
+
+- Folder ngoài cùng mysite không liên quan gì đến code, bạn có thể đổi tên tùy ý.
+- manage.py: Để quản lí các project và làm các chức năng như chạy website, tạo application chẳng hạn
+- Folder mysite bên trong thực chất là một Python package, và tên của nó sẽ là tên package bạn dùng để import trong code.
+  VD: import mysite.urls
+- mysite/__init__.py: File rỗng, có mục đích biến folder này thành một Python package
+- mysite/settings.py: Các settings của project ở trong này.
+- mysite/urls.py: Định nghĩa các URL của trang web.
+- mysite/wsgi.py: Dùng khi deploy project của bạn.
+
+Bh chúng ta sẽ thử chạy cái web của chúng ta nó chưa có gì đâu nhưng vẫn chạy được
+`python manage.py runserver`
+
+Sau khi chạy câu lệnh chúng ta sẽ được 1 dòng như này
+![image](https://user-images.githubusercontent.com/45547213/51222699-7c5d5100-1971-11e9-97cb-e58a279d1252.png)
+
+Bây giờ vào trình duyệt web viết cái đường dẫn vào ta sẽ được thế này
+![image](https://user-images.githubusercontent.com/45547213/51222747-a9a9ff00-1971-11e9-8be6-ffa75301de83.png)
+
+# Viết app hello world
+## Cú pháp
+Mọi app trong django đều được coi là 1 package và django cung cấp sẵn 1 cấu trúc cho 1 app bạn chỉ cần tập trung vào code thôi
+
+Tạo 1 app bằng câu lệnh
+`python manage.py runserver polls`
+
+Chúng ta sẽ có thư mục polls trong mysite. Bên trong thư mục polls này là các file hoặc folder được django cấu trúc sẵn 
+![image](https://user-images.githubusercontent.com/45547213/51222916-440a4280-1972-11e9-8785-5f23d8d987a9.png)
+
+## App và Project khác nhau ở đâu?
+Một app sẽ chỉ thực hiện một chức năng nhất định, ví dụ như hiển thị bài viết, quản lý user, hay tạo ứng dụng bình chọn v.v... 
+Và một Project sẽ chứa các app đó, tạo thành một website. Và một app cũng có thể dùng trong nhiều Project khác nhau.
+
+Bây giờ chúng ta sẽ tạo 1 view đầu tiên
+```
+from django.shortcuts import render
+from django.http import HttpResponse
+# Create your views here.
+def index(request):
+    return HttpResponse("hello")
+```
+
+## Đăng kí app mới tạo
+
+Vào `Setting.py` trong `mysite`, trong phần INSTALLED_APP. Chúng ta vào dòng
+
+`polls.apps.PollsConfig`
+
+![image](https://user-images.githubusercontent.com/45547213/51223642-225e8a80-1975-11e9-8a6d-3d8037f56c3c.png)
+
+## Tạo đường dẫn cho app
+Khi project chạy
+đầu tiên nó sẽ vào phần setting phần INSTALLED_APP đầu tiên rồi sau đó nó vào urls.py để so khớp các đường dẫn
+nên để 1 app hiển thị được chúng ta phải tạo đường dẫn cho nó 
+
+B1: Vào app của mình (ở đây là polls) tạo 1 file python có tên là urls.py
+
+B2: Viết đoạn lệnh này vào file đó
+
+![image](https://user-images.githubusercontent.com/45547213/51224226-85512100-1977-11e9-9a3d-e9762f18100d.png)
+
+B3: Vào url.py trong thư mục mysite để thêm đường dẫn tới thư mục polls/urls.py
+
+![image](https://user-images.githubusercontent.com/45547213/51224384-263fdc00-1978-11e9-906a-e52e90dbc030.png)
+
+Giải thích nè: Đầu tiên ở trong cái thư mục polls/urls.py bạn thêm đường dẫn của cái function index trong view
+Sau đó bạn qua cái mysite/urls.py để thêm đường dẫn tới cái polls/urls.py
+
+# Luyện tập thêm cho phần này
+http://127.0.0.1:8000/polls/lolo tạo 1 cái như này
+
+
+
+
+
+
+
+
+
+
+
+
